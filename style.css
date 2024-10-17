@@ -1,0 +1,132 @@
+body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: #1E1E1E;
+  background-image: 
+    radial-gradient(circle at top left, #1d1d54, transparent),
+    radial-gradient(circle at top right, #3f3faa, transparent),
+    radial-gradient(circle at bottom left, #3131a3, transparent),
+    radial-gradient(circle at bottom right, #1e1e1e, transparent);
+  background-blend-mode: screen;
+}
+
+#background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+  opacity: 0.2;
+}
+
+.btn-outline-search {
+  border-radius: 50px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-top: 3px, solid #292a38;
+  border-bottom: 3px, solid #292a38;
+  border-right: 3px, solid #292a38;
+}
+
+.btn-search {
+  border-radius: 100px;
+  width: 65px;
+  height: 30px;
+}
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position:relative;
+  min-height: 100vh;
+  padding: 20px;
+  z-index: 1;
+}
+
+.rectangle {
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 50px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  max-width: 1000px;
+  width: 100%;
+  height: 300px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  opacity: 0.8;
+}
+
+.rectangle .logo {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 30px;
+  height: 30px;
+}
+
+.zearch {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #222330;
+}
+
+.rectangle-3 {
+  margin-top: 20px;
+}
+
+.group-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 100px;
+  border-top: 3px, solid, #292a38;
+  border-bottom: 3px, solid, #292a38;
+  border-left: 3px, solid, #292a38;
+  background-color: rgba(255, 255, 255, 0.2)
+}
+
+img {
+  max-width: 50%;
+}
+
+/* Style untuk suggestions */
+.suggestions {
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  position: relative;
+  width: 100%;
+  display: none; /* Mulai tersembunyi */
+  z-index: 10;
+  margin-top: 5px;
+}
+.suggestion-item {
+  padding: 10px;
+  cursor: pointer;
+}
+.suggestion-item:hover {
+  background-color: #a399ed;
+}
+
+.results {
+  border: 1px solid #ccc; /* Tambahkan border untuk melihat hasil */
+  padding: 10px;
+  margin: 20px 0;
+  z-index: 9;
+  display: flex; /* Atur menjadi flex untuk menyusun hasil pencarian */
+  flex-direction: column; /* Susun dalam kolom */
+  align-items: center; /* Tengahkan hasil pencarian */
+  text-align: center;
+  min-height: fit-content;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .zearch {
+    font-size: 2rem;
+  }
+  
+}
