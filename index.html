@@ -11,27 +11,66 @@
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <video id="background-video" loop muted autoplay>
-        <source src="/assets/images/vide-daun.mp4" type="video/mp4">
-    </video>
-    <div class="main-container">
-        <div class="rectangle">
-            <span class="zearch">Zearch</span>
-            <div class="rectangle-3">
-                <img class="logo" src="/assets/images/Logo.png" />
-                <div class="input-group mb-3">
-                    <input class="form-control group-input" type="text" id="search" placeholder="Search..." oninput="showSuggestions()" />
-                    <button class="btn btn-outline-search" type="button" onclick="search()">
-                        <img class="btn-search" src="/assets/images/Search.png">
-                    </button>
-                </div>
-                <div id="suggestions" class="suggestions"></div>
-                <div id="results" class="results"></div>
+  <video id="background-video" loop muted autoplay>
+    <source src="/assets/images/vide-daun.mp4" type="video/mp4">
+  </video>
+
+  <div class="main-container">
+    <div class="group-container">
+      <span class="zearch">Zearch</span>
+        <p>Oleh: Kelompok 2</p>
+
+      <div class="container">
+        <div class="logo-container">
+          <img class="logo" src="/assets/images/Logo.png" />
+          <img class="logo" src="/assets/images/Logo Unri.png" />
+        </div>
+
+        <div class="input-container">
+          <div class="input-box">
+            <label for="character-input">
+              Karakter
+              <input type="text" maxlength="1" id="character-input" autocomplete="off">
+            </label>
+          </div>
+          <div class="input-box">
+            <p>Kata dasar</p>
+            <select name="word-input" id="word-input">
+            <option>-- pilih kata --</option>
+            </select>
+          </div>
+          <div class="input-box">
+            <p>Kalimat</p>
+            <select name="sentence-input" id="sentence-input">
+            <option>-- pilih kalimat --</option>
+            </select>
+          </div>
+            <button id="btn">Search</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="group-container">
+      <div class="output-container">
+        <h2>Informasi</h2>
+        <hr>
+        <div class="output-information hide">
+          <h2 class="information-title" id="information-title">Title</h2>
+          <p class="information-desc" id="information-desc">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe ipsa repudiandae architecto pariatur sapiente obcaecati tenetur culpa, fugit veniam illo.</p>
+            <div class="card">
+              <h3>Gambar</h3>
+              <img src="https://i2.wp.com/gdm.id/wp-content/uploads/2022/07/ayam-bangkok-jantan.jpg" id="information-image">
+            </div>
+            <div class="card">
+              <h3>Video</h3>
+              <iframe src="https://www.youtube.com/embed/B12KV1qABKQ" title="YouTube video player" frameborder="0" id="information-video"></iframe>
             </div>
         </div>
       </div>
-    <script src="/assets/data/data.js"></script>
-    <script src="script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    </div>
+  </div>
+  <script src="/assets/data/data.js"></script>
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

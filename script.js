@@ -9,118 +9,97 @@ video.addEventListener('error', () => {
   console.error('Error playing video');
 });
 
-//  Saran pencarian
-function showSuggestions() {
-    const input = document.getElementById('search').value.toLowerCase();
-    const suggestionsDiv = document.getElementById('suggestions');
-    const data = getData();
-    suggestionsDiv.innerHTML = '';
-    suggestionsDiv.style.display = 'none';
+const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 
-    if (input.length === 0) {
-        return;
+const characterInput = document.getElementById("character-input");
+const wordSelectInput = document.getElementById("word-input");
+const sentenceSelectInput = document.getElementById("sentence-input");
+const button = document.getElementById('btn');
+
+const outputInformation = document.querySelector('.output-information');
+
+let dataTemp = getData();
+
+// fungsi untuk menampil opsi kata 
+function showWordOption(character) {
+  wordSelectInput.innerHTML = '';
+  let option = document.createElement("option");
+  option.innerText = "-- pilih kata --";
+  wordSelectInput.append(option);
+
+  // Memfilter kata yang ditampilkan pada opsi
+  // Hanya menampilkan kata yang berawalannya sama dengan character
+  dataTemp.filter(words => {
+    if(words.word[0].toLowerCase() === character.toLowerCase()) {
+      let wordOption = document.createElement("option");
+      wordOption.innerText = words.word;
+      wordSelectInput.append(wordOption);
     }
-
-    // Ambil saran berdasarkan input kata
-    let suggestions = data.map(item => item.word)
-        .filter(word => word.toLowerCase().startsWith(input))
-        .slice(0, 5);
-
-    if (suggestions.length === 0) {
-        // Jika tidak ada kata, cari dalam kalimat
-        suggestions = data.flatMap(item => item.sentences.map(s => s.sentence))
-            .filter(sentence => sentence.toLowerCase().startsWith(input))
-            .slice(0, 5);
-    }
-
-    if (suggestions.length > 0) {
-        suggestionsDiv.style.display = 'block';
-        suggestions.forEach(suggestion => {
-            const suggestionItem = document.createElement('div');
-            suggestionItem.classList.add('suggestion-item');
-            suggestionItem.textContent = suggestion;
-            suggestionItem.onclick = () => {
-                document.getElementById('search').value = suggestion;
-                showNextSuggestions(suggestion);
-            };
-            suggestionsDiv.appendChild(suggestionItem);
-        });
-    }
+  })
 }
 
-function showNextSuggestions(selected) {
-    const input = selected.toLowerCase();
-    const suggestionsDiv = document.getElementById('suggestions');
-    const data = getData();
-    suggestionsDiv.innerHTML = '';
-    suggestionsDiv.style.display = 'none';
+// fungsi untuk menampilkan opsi kalimat
+function showSentenceOption(word) {
+  sentenceSelectInput.innerHTML = '';
+  let option = document.createElement("option");
+  option.innerText = "-- pilih kalimat --";
+  sentenceSelectInput.append(option);
 
-    let suggestions = data.flatMap(item => item.sentences.map(s => s.sentence))
-        .filter(sentence => sentence.toLowerCase().startsWith(input) && sentence.toLowerCase() !== input)
-        .slice(0, 5);
-
-    if (suggestions.length > 0) {
-        suggestionsDiv.style.display = 'block';
-        suggestions.forEach(suggestion => {
-            const suggestionItem = document.createElement('div');
-            suggestionItem.classList.add('suggestion-item');
-            suggestionItem.textContent = suggestion;
-            suggestionItem.onclick = () => {
-                document.getElementById('search').value = suggestion;
-                showNextSuggestions(suggestion);
-            };
-            suggestionsDiv.appendChild(suggestionItem);
-        });
-    }
+  // Memfilter kalimat yang ditampilkan pada opsi, sesuai dengan masukan kata/word
+  dataTemp.filter(e => e.word === word)[0].sentences
+    .map(sentence => {
+      let sentenceOption = document.createElement("option");
+      sentenceOption.innerText = sentence.sentence;
+      sentenceSelectInput.append(sentenceOption);
+    })
 }
 
-// Search
-function search() {
-    const query = document.getElementById("search").value.toLowerCase();
-    console.log("Query:", query); // Memeriksa nilai input
-    const data = getData();
-    console.log('Data',data); // Memeriksa data yang diambil
-    const resultsContainer = document.getElementById("results");
-    resultsContainer.innerHTML = ''; // Kosongkan hasil sebelumnya
-    
-    data.forEach(item => {
-        if (item.word.toLowerCase().includes(query)) {
-            item.sentences.forEach(sentence => {
-                const resultDiv = document.createElement("div");
-                resultDiv.classList.add("result");
+// fungsi untuk menampilkan semua informasi, deskripsi, gambar, dan video
+function showInformation() {
+  let word = wordSelectInput.value;
+  let sentence = sentenceSelectInput.value
 
-                // Menambahkan kalimat
-                const sentenceEl = document.createElement("h2");
-                sentenceEl.textContent = sentence.sentence;
-                resultDiv.appendChild(sentenceEl);
+  let isWord = word === '-- pilih kata --';
+  let isSentence = sentence === '-- pilih kalimat --';
 
-                // Menambahkan informasi
-                const infoEl = document.createElement("p");
-                infoEl.textContent = sentence.information;
-                resultDiv.appendChild(infoEl);
 
-                // Menambahkan gambar
-                if (sentence.image) {
-                    const imgEl = document.createElement("img");
-                    imgEl.src = sentence.image;
-                    imgEl.classList.add("img-fluid"); // Menggunakan class Bootstrap untuk responsive image
-                    resultDiv.appendChild(imgEl);
-                }
+  outputInformation.classList.add('hide');
 
-                // Menambahkan video (YouTube iframe)
-                if (sentence.video) {
-                    const videoEl = document.createElement("iframe");
-                    videoEl.width = "560";
-                    videoEl.height = "315";
-                    videoEl.src = `https://www.youtube.com/embed/${sentence.video}`;
-                    videoEl.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-                    videoEl.allowFullscreen = true;
-                    resultDiv.appendChild(videoEl);
-                }
+  if(isSentence) return false;
 
-                // Append hasil pencarian ke container
-                resultsContainer.appendChild(resultDiv);
-            });
-        }
-    });
+  outputInformation.classList.remove('hide');
+
+  let sentenceInformation = dataTemp.filter(data => {
+    return word === data.word;
+  })[0].sentences.filter(data => {
+    return sentence === data.sentence;
+  })[0]
+
+  const titleInformation = document.getElementById('information-title');
+  const descInformation = document.getElementById('information-desc');
+  const imageInformation = document.getElementById('information-image');
+  const videoInformation = document.getElementById('information-video');
+
+  titleInformation.innerText = sentenceInformation.sentence;
+  descInformation.innerText = sentenceInformation.information;
+  imageInformation.src = sentenceInformation.image;
+  videoInformation.src =`https://www.youtube.com/embed/${sentenceInformation.video}`;
 }
+
+// fungsi yang bekerja saat character di-input
+characterInput.addEventListener("input", (e) => {
+  outputInformation.classList.add('hide');
+  showWordOption(e.target.value);
+  sentenceSelectInput.innerHTML = "<option>-- pilih kalimat --</option>"
+})
+
+// fungsi yang bekerja saat memilih opsi kata
+wordSelectInput.addEventListener("change", e => {
+  showSentenceOption(e.target.value)
+})
+
+// fungsi yang bekerja saat button diklik
+// maka fungsi tersebut akan memanggil fungsi ShowInformation()
+button.addEventListener('click', () => {
+  showInformation();
+})

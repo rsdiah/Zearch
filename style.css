@@ -9,118 +9,197 @@ body {
   background-blend-mode: screen;
 }
 
+/* tampilan background */
 #background-video {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
-  object-fit: cover;
+  object-fit:fill;
   z-index: -1;
   opacity: 0.2;
 }
 
-.btn-outline-search {
-  border-radius: 50px;
-  background-color: rgba(255, 255, 255, 0.2);
-  border-top: 3px, solid #292a38;
-  border-bottom: 3px, solid #292a38;
-  border-right: 3px, solid #292a38;
-}
-
-.btn-search {
-  border-radius: 100px;
-  width: 65px;
-  height: 30px;
-}
-
+/* container */
 .main-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   position:relative;
   min-height: 100vh;
   padding: 20px;
-  z-index: 1;
+  z-index: 2;
 }
 
-.rectangle {
+.group-container {
+  margin-top: 30px;
   background-color: rgba(255, 255, 255, 0.3);
   padding: 50px;
   border-radius: 12px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   max-width: 1000px;
+  max-height: fit-content;
   width: 100%;
-  height: 300px;
+  height: 100%;
   text-align: center;
   backdrop-filter: blur(10px);
   opacity: 0.8;
 }
 
-.rectangle .logo {
+.logo-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
   position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px;
+}
+
+.container {
+  margin-top: 20px;
+}
+
+.input-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1px;
+}
+
+.output-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1px;
+  z-index: 1;
+}
+/* Logo */
+.logo-container img {
+  margin-right: 10px;
+  width: 150px;
+  height: auto;
+}
+
+.group-container .logo {
   top: 10px;
   left: 10px;
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
 }
 
 .zearch {
   font-family: 'DM Serif Display', serif;
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: bold;
   color: #222330;
 }
 
-.rectangle-3 {
-  margin-top: 20px;
+/* Input */
+.input-box {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
 }
 
-.group-input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 100px;
-  border-top: 3px, solid, #292a38;
-  border-bottom: 3px, solid, #292a38;
-  border-left: 3px, solid, #292a38;
-  background-color: rgba(255, 255, 255, 0.2)
-}
-
-img {
-  max-width: 50%;
-}
-
-/* Style untuk suggestions */
-.suggestions {
-  max-height: 300px;
-  overflow-y: auto;
+input, select, button, option {
   background-color: rgba(255, 255, 255, 0.5);
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-  position: relative;
-  width: 100%;
-  display: none; /* Mulai tersembunyi */
-  z-index: 10;
-  margin-top: 5px;
-}
-.suggestion-item {
-  padding: 10px;
-  cursor: pointer;
-}
-.suggestion-item:hover {
-  background-color: #a399ed;
+  border-radius: 50px;
+  border: 3px solid #292a38;  
+  color: #222330;
+  height: 35px;
+  padding: 4px;
 }
 
-.results {
-  border: 1px solid #ccc; /* Tambahkan border untuk melihat hasil */
-  padding: 10px;
-  margin: 20px 0;
-  z-index: 9;
-  display: flex; /* Atur menjadi flex untuk menyusun hasil pencarian */
-  flex-direction: column; /* Susun dalam kolom */
-  align-items: center; /* Tengahkan hasil pencarian */
-  text-align: center;
-  min-height: fit-content;
+input, select {
+  margin-top: 2px;
+}
+
+select:hover {
+  cursor: pointer;
+  background-color: #292a38;
+  color: rgba(255, 255, 255);;
+}
+
+option:hover {
+  cursor: pointer;
+  background-color: #a399ed;
+  color: rgba(255, 255, 255);;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-box p, label {
+  font-size: 18px;
+}
+
+button {
+  width: 80%;
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #292a38;
+  color: rgb(255, 255, 255);;
+}
+
+/* Output */
+.output-information {
+  margin: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+}
+
+hr {
+  margin-top: 4px;
+  width: 80%;
+  border: 2px solid black;
+}
+
+.information-title {
+  margin-bottom: 8px;
+}
+
+.information-desc {
+  text-align: justify;
+  text-justify: inter-word;
+  margin-bottom: 15px;
+}
+
+.card {
+  width: 80%;
+  max-height: 350px;
+  height: 350px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card img {
+  width: 100%;
+  margin-top: 6px;
+}
+
+.card iframe {
+  max-height: 315px;
+  height: 100%;
+  width: 100%;
+  margin-top: 6px;
+}
+
+.hide {
+  display: none;
 }
 
 /* Responsiveness */
