@@ -9,6 +9,7 @@ video.addEventListener('error', () => {
   console.error('Error playing video');
 });
 
+// Untuk menampilkan data
 const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 
 const characterInput = document.getElementById("character-input");
